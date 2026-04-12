@@ -1,0 +1,80 @@
+---
+---
+
+<button
+  id="theme-toggle"
+  type="button"
+  class="theme-toggle"
+  aria-label="Switch to light mode"
+  title="Toggle theme"
+>
+  <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <circle cx="12" cy="12" r="5"></circle>
+    <line x1="12" y1="1" x2="12" y2="3"></line>
+    <line x1="12" y1="21" x2="12" y2="23"></line>
+    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+    <line x1="1" y1="12" x2="3" y2="12"></line>
+    <line x1="21" y1="12" x2="23" y2="12"></line>
+    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+  </svg>
+  <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+  </svg>
+</button>
+
+<style>
+  .theme-toggle {
+    background: none;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    padding: var(--space-1);
+    color: var(--color-text-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+
+  .theme-toggle:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+
+  /* Dark mode: show sun, hide moon */
+  .icon-sun { display: block; }
+  .icon-moon { display: none; }
+
+  /* Light mode: show moon, hide sun */
+  :global(html.light) .icon-sun { display: none; }
+  :global(html.light) .icon-moon { display: block; }
+</style>
+
+<script is:inline>
+  (function () {
+    var btn = document.getElementById('theme-toggle');
+    if (!btn) return;
+
+    function isLight() {
+      return document.documentElement.classList.contains('light');
+    }
+
+    function updateAria() {
+      btn.setAttribute(
+        'aria-label',
+        isLight() ? 'Switch to dark mode' : 'Switch to light mode'
+      );
+    }
+
+    btn.addEventListener('click', function () {
+      var toggled = !isLight();
+      document.documentElement.classList.toggle('light', toggled);
+      localStorage.setItem('theme', toggled ? 'light' : 'dark');
+      updateAria();
+    });
+
+    updateAria();
+  })();
+</script>

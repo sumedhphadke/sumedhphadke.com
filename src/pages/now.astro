@@ -1,0 +1,23 @@
+---
+import Base from '../layouts/Base.astro';
+import NowCard from '../components/NowCard.astro';
+import { getCollection } from 'astro:content';
+
+const nowEntries = await getCollection('now');
+const sorted = nowEntries.sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+---
+
+<Base title="Now" description="What Sumedh is doing now.">
+  <h1>What I'm doing now</h1>
+  <section class="now-list">
+    {sorted.map((entry) => <NowCard entry={entry} />)}
+  </section>
+</Base>
+
+<style>
+  h1 {
+    margin-bottom: var(--space-8);
+  }
+</style>

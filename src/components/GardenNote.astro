@@ -1,0 +1,89 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  entry: CollectionEntry<'garden'>;
+  excerpt: string;
+}
+
+const { entry, excerpt } = Astro.props;
+
+const plantedStr = entry.data.planted.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+});
+
+const tendedStr = entry.data.tended.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+});
+
+const stage = entry.data.stage;
+---
+
+<article class="garden-note">
+  <a href={`/garden/${entry.id}`} class="garden-note-title">{entry.data.title}</a>
+  <p class="garden-note-excerpt">{excerpt}</p>
+  <footer class="garden-note-footer">
+    <span class="garden-date">planted {plantedStr}</span>
+    <span class="garden-date">tended {tendedStr}</span>
+    <span class={`garden-stage stage-${stage}`}>{stage}</span>
+  </footer>
+</article>
+
+<style>
+  .garden-note {
+    background-color: var(--color-surface);
+    padding: var(--space-4);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-4);
+  }
+
+  .garden-note-title {
+    font-weight: 500;
+    text-decoration: none;
+    display: block;
+    margin-bottom: var(--space-2);
+  }
+
+  .garden-note-excerpt {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-3);
+  }
+
+  .garden-note-footer {
+    display: flex;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+    align-items: center;
+    font-size: var(--font-size-xs);
+  }
+
+  .garden-date {
+    color: var(--color-text-faint);
+  }
+
+  .garden-stage {
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-xs);
+  }
+
+  .stage-seed {
+    background-color: var(--color-seed-bg);
+    color: var(--color-seed-text);
+  }
+
+  .stage-growing {
+    background-color: var(--color-growing-bg);
+    color: var(--color-growing-text);
+  }
+
+  .stage-evergreen {
+    background-color: var(--color-evergreen-bg);
+    color: var(--color-evergreen-text);
+  }
+</style>

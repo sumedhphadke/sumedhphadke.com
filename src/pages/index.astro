@@ -1,0 +1,145 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const nowEntries = await getCollection('now');
+const blogEntries = await getCollection('blog', ({ data }) => !data.draft);
+const gardenEntries = await getCollection('garden');
+
+const latestNow = nowEntries.sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+)[0];
+
+const latestBlog = blogEntries.sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+)[0];
+
+const latestGarden = gardenEntries.sort(
+  (a, b) => b.data.tended.getTime() - a.data.tended.getTime()
+)[0];
+
+function formatDate(date: Date): string {
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
+}
+---
+
+<Base title="Sumedh Phadke">
+  <section class="intro">
+    <!-- TODO: Sumedh — replace this with your own intro. Two lines, your voice, not a README. -->
+    <p>This is the personal website of Sumedh Phadke.</p>
+    <p>Resume, now log, blog, and digital garden.</p>
+  </section>
+
+  <section class="snapshot">
+    {latestNow && (
+      <div class="snapshot-col">
+        <span class="snapshot-label">now</span>
+        <a href="/now" class="snapshot-title">{latestNow.data.title}</a>
+        <time datetime={latestNow.data.date.toISOString()}>
+          {formatDate(latestNow.data.date)}
+        </time>
+      </div>
+    )}
+
+    {latestBlog && (
+      <div class="snapshot-col">
+        <span class="snapshot-label">latest post</span>
+        <a href={`/blog/${latestBlog.id}`} class="snapshot-title">
+          {latestBlog.data.title}
+        </a>
+        <time datetime={latestBlog.data.date.toISOString()}>
+          {formatDate(latestBlog.data.date)}
+        </time>
+      </div>
+    )}
+
+    {latestGarden && (
+      <div class="snapshot-col">
+        <span class="snapshot-label">from the garden</span>
+        <a href={`/garden/${latestGarden.id}`} class="snapshot-title">
+          {latestGarden.data.title}
+        </a>
+        <span class={`stage-badge stage-${latestGarden.data.stage}`}>
+          {latestGarden.data.stage}
+        </span>
+        <time datetime={latestGarden.data.tended.toISOString()}>
+          {formatDate(latestGarden.data.tended)}
+        </time>
+      </div>
+    )}
+  </section>
+</Base>
+
+<style>
+  .intro {
+    margin-bottom: var(--space-12);
+  }
+
+  .intro p {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-base);
+  }
+
+  .snapshot {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+  }
+
+  .snapshot-col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .snapshot-label {
+    text-transform: uppercase;
+    font-size: var(--font-size-xs);
+    color: var(--color-text-faint);
+    letter-spacing: 0.05em;
+  }
+
+  .snapshot-title {
+    font-weight: 500;
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+  }
+
+  .snapshot-col time {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-faint);
+  }
+
+  .stage-badge {
+    font-size: var(--font-size-xs);
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-sm);
+    width: fit-content;
+  }
+
+  .stage-seed {
+    background-color: var(--color-seed-bg);
+    color: var(--color-seed-text);
+  }
+
+  .stage-growing {
+    background-color: var(--color-growing-bg);
+    color: var(--color-growing-text);
+  }
+
+  .stage-evergreen {
+    background-color: var(--color-evergreen-bg);
+    color: var(--color-evergreen-text);
+  }
+
+  @media (max-width: 640px) {
+    .snapshot {
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+    }
+  }
+</style>

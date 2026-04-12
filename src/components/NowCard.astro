@@ -1,0 +1,62 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { render } from 'astro:content';
+
+interface Props {
+  entry: CollectionEntry<'now'>;
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+const dateStr = entry.data.date.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+});
+---
+
+<article class="now-card">
+  <header>
+    <h3>{entry.data.title}</h3>
+    <div class="now-meta">
+      <time datetime={entry.data.date.toISOString()}>{dateStr}</time>
+      <span class="now-category">{entry.data.category}</span>
+    </div>
+  </header>
+  <div class="now-body">
+    <Content />
+  </div>
+</article>
+
+<style>
+  .now-card {
+    border-left: 2px solid var(--color-accent);
+    padding-left: var(--space-4);
+    margin-bottom: var(--space-6);
+  }
+
+  .now-card h3 {
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    margin-bottom: var(--space-1);
+  }
+
+  .now-meta {
+    display: flex;
+    gap: var(--space-3);
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-2);
+  }
+
+  .now-category {
+    color: var(--color-accent);
+    font-size: var(--font-size-xs);
+  }
+
+  .now-body {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+  }
+</style>

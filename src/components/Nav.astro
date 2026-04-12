@@ -1,0 +1,80 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+const pathname = Astro.url.pathname;
+
+const links = [
+  { href: '/now', label: 'now' },
+  { href: '/work', label: 'work' },
+  { href: '/blog', label: 'blog' },
+  { href: '/garden', label: 'garden' },
+] as const;
+
+function isActive(href: string): boolean {
+  return pathname === href || pathname.startsWith(href + '/');
+}
+---
+
+<nav class="site-nav">
+  <a href="/" class="site-name" aria-current={pathname === '/' ? 'page' : undefined}>
+Sumedh Phadke</a>
+  <ul class="nav-links">
+    {links.map((link) => (
+      <li>
+        <a
+          href={link.href}
+          class:list={[{ 'is-active': isActive(link.href) }]}
+          aria-current={isActive(link.href) ? 'page' : undefined}
+        >
+          {link.label}
+        </a>
+      </li>
+    ))}
+    <li><ThemeToggle /></li>
+  </ul>
+</nav>
+
+<style>
+  .site-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-4) 0;
+    border-bottom: 1px solid var(--color-border);
+    margin-bottom: var(--space-12);
+  }
+
+  .site-name {
+    font-weight: 500;
+    font-size: var(--font-size-base);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: var(--space-4);
+    list-style: none;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+  }
+
+  .nav-links a:hover {
+    color: var(--color-accent);
+  }
+
+  .nav-links a.is-active {
+    color: var(--color-accent);
+    border-bottom: 1px solid var(--color-accent);
+  }
+
+  @media (max-width: 480px) {
+    .site-nav {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-2);
+    }
+  }
+</style>

@@ -1,0 +1,75 @@
+:root {
+  color-scheme: dark;
+
+  /* Dark mode — default */
+  --color-bg:           #0F1117;
+  --color-surface:      #1A1B1F;
+  --color-border:       #2A2D37;
+  --color-text-primary: #F0EBE1;
+  --color-text-muted:   #A8A090;
+  --color-text-faint:   #6B6458;
+  --color-accent:       #E8541A;
+
+  /* Links */
+  --color-link:         #E8541A;
+  --color-link-hover:   #F97316;
+
+  /* Garden stages */
+  --color-seed-bg:        #2D2208;
+  --color-seed-text:      #FCD34D;
+  --color-growing-bg:     #0D2318;
+  --color-growing-text:   #4ADE80;
+  --color-evergreen-bg:   #0A2020;
+  --color-evergreen-text: #2DD4BF;
+
+  /* Typography */
+  --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+  --font-size-xs:   11px;
+  --font-size-sm:   13px;
+  --font-size-base: 16px;
+  --font-size-lg:   18px;
+  --font-size-xl:   24px;
+  --font-size-2xl:  32px;
+  --line-height-tight: 1.4;
+  --line-height-base:  1.7;
+
+  /* Spacing (4px base grid) */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* Layout */
+  --max-width-content: 720px;
+  --max-width-wide:    960px;
+
+  /* Borders */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+}
+
+/* Light mode — toggled via class on <html> */
+html.light {
+  color-scheme: light;
+  --color-bg:           #F6F1E9;
+  --color-surface:      #EDE8DF;
+  --color-border:       #D6D0C4;
+  --color-text-primary: #1C1917;
+  --color-text-muted:   #78716C;
+  --color-text-faint:   #A8A29E;
+  --color-accent:       #C2410C;
+
+  --color-link:         #C2410C;
+  --color-link-hover:   #9A3412;
+
+  --color-seed-bg:        #FEF3C7;
+  --color-seed-text:      #92400E;
+  --color-growing-bg:     #DCFCE7;
+  --color-growing-text:   #166534;
+  --color-evergreen-bg:   #CCFBF1;
+  --color-evergreen-text: #0F766E;
+}

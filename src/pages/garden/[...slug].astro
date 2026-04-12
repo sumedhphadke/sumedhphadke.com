@@ -1,0 +1,126 @@
+---
+import Garden from '../../layouts/Garden.astro';
+import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+
+export const getStaticPaths = (async () => {
+  const notes = await getCollection('garden');
+  return notes.map((note) => ({
+    params: { slug: note.id },
+    props: { note },
+  }));
+}) satisfies GetStaticPaths;
+
+const { note } = Astro.props as { note: CollectionEntry<'garden'> };
+const { Content } = await render(note);
+
+const allNotes = await getCollection('garden');
+const backlinks = allNotes.filter(
+  (other) => other.id !== note.id && other.body?.includes(note.id)
+);
+
+const plantedStr = note.data.planted.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+
+const tendedStr = note.data.tended.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+
+const stage = note.data.stage;
+---
+
+<Garden title={note.data.title}>
+  <header class="note-header">
+    <h1>{note.data.title}</h1>
+    <div class="note-meta">
+      <span class={`stage-badge stage-${stage}`}>{stage}</span>
+      <span class="note-date">planted {plantedStr}</span>
+      <span class="note-date">tended {tendedStr}</span>
+    </div>
+  </header>
+
+  <Content />
+
+  {backlinks.length > 0 && (
+    <section class="backlinks">
+      <h2>Referenced by</h2>
+      <ul>
+        {backlinks.map((link) => (
+          <li>
+            <a href={`/garden/${link.id}`}>{link.data.title}</a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+</Garden>
+
+<style>
+  .note-header {
+    margin-bottom: var(--space-8);
+  }
+
+  .note-meta {
+    display: flex;
+    gap: var(--space-3);
+    align-items: center;
+    margin-top: var(--space-2);
+    font-size: var(--font-size-xs);
+  }
+
+  .note-date {
+    color: var(--color-text-faint);
+  }
+
+  .stage-badge {
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-xs);
+  }
+
+  .stage-seed {
+    background-color: var(--color-seed-bg);
+    color: var(--color-seed-text);
+  }
+
+  .stage-growing {
+    background-color: var(--color-growing-bg);
+    color: var(--color-growing-text);
+  }
+
+  .stage-evergreen {
+    background-color: var(--color-evergreen-bg);
+    color: var(--color-evergreen-text);
+  }
+
+  .backlinks {
+    margin-top: var(--space-12);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .backlinks h2 {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-3);
+  }
+
+  .backlinks ul {
+    list-style: none;
+  }
+
+  .backlinks li {
+    margin-bottom: var(--space-2);
+  }
+
+  .backlinks a {
+    font-size: var(--font-size-sm);
+    text-decoration: none;
+  }
+</style>

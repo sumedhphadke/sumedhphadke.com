@@ -1,0 +1,77 @@
+---
+import Base from './Base.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<Base title={title} description={description}>
+  <article class="garden-entry">
+    <slot />
+  </article>
+</Base>
+
+<style>
+  .garden-entry {
+    max-width: var(--max-width-content);
+  }
+
+  .garden-entry :global(h1) {
+    margin-bottom: var(--space-4);
+  }
+
+  .garden-entry :global(h2) {
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-3);
+  }
+
+  .garden-entry :global(h3) {
+    margin-top: var(--space-6);
+    margin-bottom: var(--space-2);
+  }
+
+  .garden-entry :global(p) {
+    margin-bottom: var(--space-4);
+  }
+
+  .garden-entry :global(ul),
+  .garden-entry :global(ol) {
+    margin-bottom: var(--space-4);
+    padding-left: var(--space-6);
+  }
+
+  .garden-entry :global(li) {
+    margin-bottom: var(--space-1);
+  }
+
+  .garden-entry :global(blockquote) {
+    border-left: 2px solid var(--color-accent);
+    padding-left: var(--space-4);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-4);
+  }
+
+  .garden-entry :global(code) {
+    background-color: var(--color-surface);
+    padding: var(--space-1);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-sm);
+  }
+
+  .garden-entry :global(pre) {
+    background-color: var(--color-surface);
+    padding: var(--space-4);
+    border-radius: var(--radius-md);
+    overflow-x: auto;
+    margin-bottom: var(--space-4);
+  }
+
+  .garden-entry :global(pre code) {
+    background: none;
+    padding: 0;
+  }
+</style>

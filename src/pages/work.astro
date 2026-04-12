@@ -1,0 +1,27 @@
+---
+import Prose from '../layouts/Prose.astro';
+import { render } from 'astro:content';
+import { getEntry } from 'astro:content';
+
+const workEntry = await getEntry('work', 'index');
+if (!workEntry) throw new Error('work/index.md not found');
+const { Content } = await render(workEntry);
+---
+
+<Prose title="Work" description="Sumedh Phadke's resume.">
+  <Content />
+  <p class="resume-link">
+    <a href="/resume.pdf">Download resume (PDF)</a>
+  </p>
+</Prose>
+
+<style>
+  .resume-link {
+    margin-top: var(--space-8);
+    font-size: var(--font-size-sm);
+  }
+
+  .resume-link a {
+    color: var(--color-accent);
+  }
+</style>

@@ -1,0 +1,30 @@
+---
+import Base from '../../layouts/Base.astro';
+import GardenNote from '../../components/GardenNote.astro';
+import { getCollection } from 'astro:content';
+
+const gardenEntries = await getCollection('garden');
+const sorted = gardenEntries.sort(
+  (a, b) => b.data.tended.getTime() - a.data.tended.getTime()
+);
+
+function getExcerpt(body: string): string {
+  const cleaned = body.replace(/^---[\s\S]*?---/, '').trim();
+  return cleaned.length > 120 ? cleaned.slice(0, 120) + '...' : cleaned;
+}
+---
+
+<Base title="Garden" description="Sumedh Phadke's digital garden.">
+  <h1>Notes, growing in public</h1>
+  <section class="garden-list">
+    {sorted.map((entry) => (
+      <GardenNote entry={entry} excerpt={getExcerpt(entry.body ?? '')} />
+    ))}
+  </section>
+</Base>
+
+<style>
+  h1 {
+    margin-bottom: var(--space-8);
+  }
+</style>

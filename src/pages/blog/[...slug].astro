@@ -1,0 +1,71 @@
+---
+import Prose from '../../layouts/Prose.astro';
+import Giscus from '../../components/Giscus.astro';
+import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+
+export const getStaticPaths = (async () => {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}) satisfies GetStaticPaths;
+
+const { post } = Astro.props as { post: CollectionEntry<'blog'> };
+const { Content } = await render(post);
+
+const dateStr = post.data.date.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<Prose title={post.data.title} description={post.data.description}>
+  <header class="post-header">
+    <h1>{post.data.title}</h1>
+    <time datetime={post.data.date.toISOString()}>{dateStr}</time>
+  </header>
+
+  <Content />
+
+  {post.data.tags.length > 0 && (
+    <footer class="post-tags">
+      {post.data.tags.map((tag) => (
+        <span class="tag">{tag}</span>
+      ))}
+    </footer>
+  )}
+
+  <Giscus />
+</Prose>
+
+<style>
+  .post-header {
+    margin-bottom: var(--space-8);
+  }
+
+  .post-header time {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+  }
+
+  .post-tags {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+    margin-top: var(--space-8);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .tag {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+    background-color: var(--color-surface);
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-sm);
+  }
+</style>

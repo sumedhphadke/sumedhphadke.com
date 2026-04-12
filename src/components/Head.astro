@@ -1,0 +1,24 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+  canonicalUrl?: string;
+}
+
+const { title, description, canonicalUrl } = Astro.props;
+const siteTitle = 'Sumedh Phadke';
+const fullTitle = title === siteTitle ? title : `${title} — ${siteTitle}`;
+const resolvedDescription = description ?? 'Personal website of Sumedh Phadke.';
+const canonical = canonicalUrl ?? Astro.url.href;
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{fullTitle}</title>
+<meta name="description" content={resolvedDescription} />
+<link rel="canonical" href={canonical} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={resolvedDescription} />
+<meta property="og:url" content={canonical} />
+<meta property="og:type" content="website" />
+<meta name="generator" content={Astro.generator} />

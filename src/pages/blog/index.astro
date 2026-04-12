@@ -1,0 +1,23 @@
+---
+import Base from '../../layouts/Base.astro';
+import BlogEntry from '../../components/BlogEntry.astro';
+import { getCollection } from 'astro:content';
+
+const blogEntries = await getCollection('blog', ({ data }) => !data.draft);
+const sorted = blogEntries.sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+---
+
+<Base title="Blog" description="Writing by Sumedh Phadke.">
+  <h1>Writing</h1>
+  <section class="blog-list">
+    {sorted.map((entry) => <BlogEntry entry={entry} />)}
+  </section>
+</Base>
+
+<style>
+  h1 {
+    margin-bottom: var(--space-8);
+  }
+</style>
