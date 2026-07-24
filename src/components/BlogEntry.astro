@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { postSlug } from '../lib/slug';
 
 interface Props {
   entry: CollectionEntry<'blog'>;
@@ -16,7 +17,7 @@ const dateStr = entry.data.date.toLocaleDateString('en-US', {
 
 <article class="blog-entry">
   <div class="blog-entry-header">
-    <a href={`/blog/${entry.id}`}>{entry.data.title}</a>
+    <a href={`/blog/${postSlug(entry.id)}`}>{entry.data.title}</a>
     <time datetime={entry.data.date.toISOString()}>{dateStr}</time>
   </div>
   <p class="blog-entry-description">{entry.data.description}</p>

@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import { getCollection } from 'astro:content';
+import { postSlug } from '../lib/slug';
 
 const nowEntries = await getCollection('now');
 const blogEntries = await getCollection('blog', ({ data }) => !data.draft);
@@ -48,7 +49,7 @@ function formatDate(date: Date): string {
     {latestBlog && (
       <div class="snapshot-col">
         <span class="snapshot-label">latest post</span>
-        <a href={`/blog/${latestBlog.id}`} class="snapshot-title">
+        <a href={`/blog/${postSlug(latestBlog.id)}`} class="snapshot-title">
           {latestBlog.data.title}
         </a>
         <time datetime={latestBlog.data.date.toISOString()}>

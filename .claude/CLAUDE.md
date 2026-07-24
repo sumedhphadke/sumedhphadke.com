@@ -72,7 +72,7 @@ then use it. Light mode overrides live under `html.light` in the same file.
 
 ## Content
 
-Schemas in `src/content/config.ts`. Don't change one without checking every
+Schemas in `src/content.config.ts`. Don't change one without checking every
 page that consumes it.
 
 | Collection | Format | Key frontmatter                       |
@@ -84,6 +84,24 @@ page that consumes it.
 Drafts: `draft: true` in blog frontmatter, or the file lives in
 `content/drafts/` (gitignored). Garden notes have no draft state — `stage`
 communicates maturity.
+
+## URLs
+
+Filenames sort. URLs don't have to carry what made them sort.
+
+Blog files are `YYYY-MM-DD-slug.mdx` so the directory reads chronologically;
+`src/lib/slug.ts` strips the date and the post is served at `/blog/slug`.
+That function is the only definition of the rule — three places build post
+links and all three call it. Garden and now filenames are already the slug.
+
+Consequence: blog slugs must be unique across all dates, because two posts
+whose names differ only by date collide on one route. The build fails loudly
+if that happens, which is the right failure.
+
+Top-level paths are deliberately unclaimed. `/money` and similar — a standing
+page for a topic, pointing at the current thinking on it — is a wanted idea,
+not yet designed. Don't spend a top-level route on anything else without
+saying so; the collision is the whole cost.
 
 ## Pages
 
@@ -131,8 +149,60 @@ Open:
 - "Now" and "Blog" page titles still read as labels, not descriptions
 - Giscus not configured (repo + category IDs)
 
+## Verification
+
+There is no test suite and there shouldn't be one yet — a five-page static
+site with no client logic has almost nothing a unit test would catch. What it
+does have is rendered output, and that is what gets checked.
+
+Use `agent-browser` (Vercel's CLI, installed globally). Not the Chrome
+extension: this runs headless against `npm run dev` on localhost, needs no
+open browser, and is the only option that can export a PDF.
+
+Run it from bash, not PowerShell. The `.ps1` shim hangs without a TTY — it
+launches Chrome and then never returns, which looks like a slow first run
+rather than a hang. Cost an afternoon once; it won't again.
+
+Any change that alters rendered output gets looked at before it's called done:
+
+- Both themes. Dark is the default; light is `html.light`, one toggle away,
+  and equally shipped. A token added without its light-mode value is a bug
+  (see Design tokens), and this is where that bug surfaces.
+- `agent-browser pdf` when print styles are in scope. Principle 10 names how
+  it prints — an untested print stylesheet is a claim, not a detail.
+- `agent-browser snapshot` for focus order and accessible names. Focus rings
+  are principle 10 too, and the accessibility tree shows them without
+  squinting at screenshots.
+- Mobile width, for anything with a layout change.
+
+Screenshots go in the scratchpad, never in the repo.
+
 ## Enforcement lives elsewhere
 
-`astro check` must pass before commit — enforce with a hook, not this file.
 Formatting is a formatter's job. Content scaffolding belongs in a skill
 (`.claude/skills/`), not a prompt repeated every session.
+
+| Rule                        | Enforced by                                   |
+|-----------------------------|-----------------------------------------------|
+| `astro check` stays clean   | `.githooks/pre-commit` — the gate             |
+| …caught earlier than that   | Stop hook, `.claude/hooks/astro-check.mjs`    |
+| Tokens, no literals, motion | `tokens` skill                                |
+| New content scaffolding     | `new-content` skill                           |
+| Rendered output verified    | `agent-browser`, see Verification             |
+
+`.githooks/pre-commit` is the real one. It runs `astro check` and aborts the
+commit on failure, and it does not care where the edit came from — VS Code,
+an agent, a merge. `--no-verify` skips it; that should feel like a decision.
+
+The Stop hook is not a second gate, it's the same check moved earlier: it
+runs once when an agent finishes a turn, so work is never handed back on a
+broken tree. Once per turn, not once per edit — a five-file change
+typechecks once. Delete `.claude/settings.json` and nothing is lost except
+that early warning.
+
+**A fresh clone needs one command**, because git won't use a checked-in hooks
+directory on its own:
+
+```
+git config core.hooksPath .githooks
+```
