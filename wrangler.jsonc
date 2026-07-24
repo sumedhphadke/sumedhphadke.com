@@ -17,7 +17,12 @@
 		// pointing at dist would serve the whole site under /client/.
 		"directory": "./dist/client",
 		// Serve 404.astro with a real 404 status instead of Cloudflare's default.
-		"not_found_handling": "404-page"
+		"not_found_handling": "404-page",
+		// Default is auto-trailing-slash, which 307s /blog/kombucha to
+		// /blog/kombucha/ — a redirect hop on every internal link, since every
+		// link this site writes is slashless. Matches trailingSlash in
+		// astro.config.ts; change neither without the other.
+		"html_handling": "drop-trailing-slash"
 	},
 	"observability": {
 		"enabled": true
