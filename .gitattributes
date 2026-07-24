@@ -1,0 +1,5 @@
+# Shell scripts must keep LF. With core.autocrlf=true a fresh clone on Windows
+# would otherwise write CRLF, and `#!/bin/sh\r` is not a valid interpreter —
+# the pre-commit gate would silently stop working on a new machine.
+.githooks/* text eol=lf
+*.sh        text eol=lf
