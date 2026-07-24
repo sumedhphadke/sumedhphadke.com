@@ -1,0 +1,54 @@
+---
+/**
+ * Inlines an SVG rather than pointing an <img> at it. Two reasons: the text
+ * stays real text (selectable, searchable, in the a11y tree), and the SVG's
+ * own <style> block can see the theme class on <html>. An <img> isolates both.
+ * Layout only — each diagram owns its palette.
+ */
+interface Props {
+  svg: string;
+  caption?: string;
+  wide?: boolean;
+}
+
+const { svg, caption, wide = false } = Astro.props;
+---
+
+<figure class:list={['diagram', { wide }]}>
+  <div class="diagram-svg" set:html={svg} />
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>
+
+<style>
+  .diagram {
+    margin: var(--space-8) 0;
+  }
+
+  /* The diagram is 1040 units wide and does not compress usefully. Letting it
+     out of the prose column is what makes its smallest labels legible. */
+  .diagram.wide {
+    width: var(--max-width-wide);
+    max-width: 100vw;
+    margin-left: calc(50% - var(--max-width-wide) / 2);
+  }
+
+  .diagram-svg :global(svg) {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  figcaption {
+    margin-top: var(--space-3);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    text-align: center;
+  }
+
+  @media (max-width: 1000px) {
+    .diagram.wide {
+      width: 100%;
+      margin-left: 0;
+    }
+  }
+</style>

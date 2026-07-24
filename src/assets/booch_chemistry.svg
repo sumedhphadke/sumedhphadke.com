@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<svg viewBox="0 0 1040 662" width="1040" style="width:100%; height:auto; max-width:1040px; display:block;" font-family="Georgia, &#39;Times New Roman&#39;, serif" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="booch-title booch-desc">
+  <title id="booch-title">The science, briefly</title>
+  <desc id="booch-desc">In 1F, yeast eats the sugar to make alcohol and CO2, then bacteria eat the alcohol to make the sour acetic acid — so the finished booch keeps almost none of the alcohol. In 2F, a sealed bottle traps the CO2 the leftover yeast makes, and it dissolves into the liquid as fizz.</desc>
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#8E2C55" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+    </marker>
+    <marker id="art" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#2C8574" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+    </marker>
+  </defs>
+
+  <rect x="4" y="4" width="1032" height="650" rx="22" fill="#FBF5EE" stroke="#E6D3DC" stroke-width="2"></rect>
+
+  <text x="520" y="52" text-anchor="middle" font-size="30" font-weight="bold" fill="#8E2C55" letter-spacing="0.3">The science, briefly</text>
+  <text x="520" y="80" text-anchor="middle" font-size="16" font-style="italic" fill="#8A7680">two tiny workers, living in your SCOBY, taking turns</text>
+  <line x1="440" y1="96" x2="600" y2="96" stroke="#E6D3DC" stroke-width="1.5"></line>
+
+  <text x="60" y="128" font-size="17" font-weight="bold" fill="#8E2C55">1F · where the sour comes from</text>
+
+
+  <circle cx="500" cy="150" r="5" fill="none" stroke="#B98CA0" stroke-width="1"></circle>
+  <circle cx="524" cy="138" r="4" fill="none" stroke="#B98CA0" stroke-width="1"></circle>
+  <circle cx="480" cy="142" r="3.5" fill="none" stroke="#B98CA0" stroke-width="1"></circle>
+
+
+  <rect x="60" y="180" width="210" height="92" rx="10" fill="#F6EAD3" stroke="#C08A2E" stroke-width="1.5"></rect>
+  <text x="165" y="220" text-anchor="middle" font-size="18" font-weight="bold" fill="#8A5E13">Sweet tea</text>
+  <text x="165" y="244" text-anchor="middle" font-size="14" fill="#A8843F">sugar (sucrose)</text>
+
+  <rect x="415" y="180" width="200" height="92" rx="10" fill="#F0ECE4" stroke="#B3A79C" stroke-width="1.5" stroke-dasharray="6 4"></rect>
+  <text x="515" y="220" text-anchor="middle" font-size="18" font-weight="bold" fill="#5F5348">Alcohol</text>
+  <text x="515" y="244" text-anchor="middle" font-size="14" fill="#8A7C70">+ CO₂ gas</text>
+
+  <rect x="770" y="180" width="210" height="92" rx="10" fill="#8E2C55" stroke="#6E1F42" stroke-width="1.5"></rect>
+  <text x="875" y="220" text-anchor="middle" font-size="18" font-weight="bold" fill="#FBF5EE">Sour tang</text>
+  <text x="875" y="244" text-anchor="middle" font-size="14" fill="#EAC7D5">acetic acid</text>
+
+
+  <line x1="278" y1="226" x2="407" y2="226" stroke="#8E2C55" stroke-width="1.6" marker-end="url(#ar)"></line>
+  <line x1="623" y1="226" x2="762" y2="226" stroke="#2C8574" stroke-width="1.6" marker-end="url(#art)"></line>
+
+
+  <text x="342" y="209" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#8E2C55">yeast is added</text>
+  <text x="342" y="251" text-anchor="middle" font-size="13" font-style="italic" fill="#8E2C55">it eats the sugar</text>
+
+  <text x="692" y="209" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#1F5E51">bacteria eat the alcohol</text>
+  <text x="692" y="251" text-anchor="middle" font-size="13" font-style="italic" fill="#1F5E51">(they need air to live)</text>
+
+
+  <text x="165" y="298" text-anchor="middle" font-size="13" fill="#8A7680">the initial brew</text>
+  <text x="515" y="298" text-anchor="middle" font-size="13" font-style="italic" fill="#8A7C70">the in-between — before your final drink</text>
+  <text x="875" y="298" text-anchor="middle" font-size="13" fill="#8A7680">the final drink</text>
+
+
+  <g>
+    <text x="520" y="332" text-anchor="middle" font-size="14.5" fill="#45343B">The bacteria eat the alcohol as fast as the yeast makes it —</text>
+    <text x="520" y="354" text-anchor="middle" font-size="14.5" fill="#45343B">so your finished booch keeps almost none of it <tspan font-style="italic" fill="#8E2C55">(well under 0.5%)</tspan>.</text>
+    <text x="520" y="378" text-anchor="middle" font-size="13.5" font-style="italic" fill="#8A7680">CO₂ drifts off into the air · the bacteria also grow the new SCOBY layer on top</text>
+  </g>
+
+  <line x1="60" y1="402" x2="980" y2="402" stroke="#E6D3DC" stroke-width="1.5"></line>
+
+  <text x="60" y="434" font-size="17" font-weight="bold" fill="#8E2C55">2F · where the fizz comes from</text>
+  <text x="60" y="456" font-size="13.5" font-style="italic" fill="#8A7680">sealed tight with fresh fruit — the leftover yeast keeps working</text>
+
+
+  <g>
+    <path d="M138,482 L162,482" fill="none" stroke="#8E2C55" stroke-width="1.4" stroke-linecap="round"></path>
+    <path d="M132,486 C118,492 118,512 128,522" fill="none" stroke="#8E2C55" stroke-width="1.4" stroke-linecap="round"></path>
+    <path d="M168,486 C182,492 182,512 172,522" fill="none" stroke="#8E2C55" stroke-width="1.4" stroke-linecap="round"></path>
+    <rect x="132" y="480" width="36" height="20" rx="6" fill="#8E2C55"></rect>
+    <rect x="142" y="498" width="16" height="5" rx="2" fill="#C9A5B4"></rect>
+    <path d="M141,502 L141,518 Q114,524 114,552 L114,612 Q114,628 130,628 L170,628 Q186,628 186,612 L186,552 Q186,524 159,518 L159,502 Z" fill="#FDF7F1" stroke="#8E2C55" stroke-width="1.6" stroke-linejoin="round"></path>
+    <path d="M116,540 Q150,534 184,540 L184,612 Q184,626 170,626 L130,626 Q116,626 116,612 Z" fill="#F3E2E9"></path>
+    <circle cx="135" cy="558" r="4" fill="none" stroke="#B98CA0" stroke-width="1"></circle>
+    <circle cx="161" cy="570" r="3" fill="none" stroke="#B98CA0" stroke-width="1"></circle>
+    <circle cx="145" cy="588" r="4.5" fill="none" stroke="#B98CA0" stroke-width="1"></circle>
+    <circle cx="126" cy="604" r="3" fill="none" stroke="#B98CA0" stroke-width="1"></circle>
+    <circle cx="165" cy="602" r="3.5" fill="none" stroke="#B98CA0" stroke-width="1"></circle>
+  </g>
+
+
+  <line x1="168" y1="490" x2="250" y2="488" stroke="#B98CA0" stroke-width="1" stroke-dasharray="3 4"></line>
+  <circle cx="168" cy="490" r="2.5" fill="#8E2C55"></circle>
+  <text x="262" y="485" font-size="16" font-weight="bold" fill="#6E1F42">Sealed cap</text>
+  <text x="262" y="505" font-size="14" fill="#8A7680">no air gets in or out</text>
+
+  <line x1="186" y1="552" x2="250" y2="552" stroke="#B98CA0" stroke-width="1" stroke-dasharray="3 4"></line>
+  <circle cx="186" cy="552" r="2.5" fill="#8E2C55"></circle>
+  <text x="262" y="549" font-size="16" font-weight="bold" fill="#6E1F42">Fruit sugar added</text>
+  <text x="262" y="569" font-size="14" fill="#8A7680">fresh food for the leftover yeast</text>
+
+  <line x1="185" y1="606" x2="250" y2="610" stroke="#B98CA0" stroke-width="1" stroke-dasharray="3 4"></line>
+  <circle cx="185" cy="606" r="2.5" fill="#8E2C55"></circle>
+  <text x="262" y="607" font-size="16" font-weight="bold" fill="#6E1F42">CO₂ is trapped</text>
+  <text x="262" y="627" font-size="14" fill="#8A7680">nowhere to go, so it dissolves in as fizz</text>
+
+
+  <rect x="640" y="470" width="340" height="150" rx="14" fill="#F9EEF3" stroke="#E6D3DC" stroke-width="1.5"></rect>
+  <text x="666" y="504" font-size="16" font-weight="bold" fill="#8E2C55">The whole point</text>
+  <text x="666" y="532" font-size="14" fill="#45343B">1F is open (cloth) — gas escapes,</text>
+  <text x="666" y="554" font-size="14" fill="#45343B">so you get sour but flat.</text>
+  <text x="666" y="580" font-size="14" fill="#45343B">2F is sealed — gas stays,</text>
+  <text x="666" y="606" font-size="14" fill="#45343B">so you get sour <tspan font-style="italic" fill="#8E2C55">and</tspan> fizzy.</text>
+</svg>
