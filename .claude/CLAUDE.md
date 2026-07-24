@@ -1,7 +1,7 @@
 # sumedhphadke.com
 
 Personal website: resume, now log, blog, digital garden. Astro, static, on
-Cloudflare Pages. Plain CSS, TypeScript strict, no client framework.
+Cloudflare Workers. Plain CSS, TypeScript strict, no client framework.
 
 Intentionally crafted, not vibe-coded. Every decision must be justifiable.
 Permanently WIP — clean code now prevents expensive rewrites later.
@@ -70,18 +70,55 @@ visualisations. Social embeds. Scroll-triggered anything.
 
 ## Current state
 
-Done: all five pages scaffolded and rendering. Dark/light toggle working.
-Garden stage badges working. Astro 7.1.3 with matching majors on
-@astrojs/mdx (7.0.3) and @astrojs/cloudflare (14.1.4). Blog posts serve at
-clean URLs, date stripped.
+Live at sumedhphadke.com since 2026-07-25, replacing a Hugo site that had
+been on Firebase Hosting since 2024. All five pages rendering, dark/light
+toggle working, garden stage badges working. Astro 7.1.3 with matching
+majors on @astrojs/mdx (7.0.3) and @astrojs/cloudflare (14.1.4). Blog posts
+serve at clean URLs, date stripped. RSS at `/rss.xml`, sitemap, real 404.
 
 Open:
-- Homepage intro copy still placeholder — highest-priority item on the site
-  (`src/pages/index.astro:33`)
-- `/work` has real prose but no resume PDF at `public/resume.pdf`
+- `/work` has real prose but no resume PDF at `public/resume.pdf`. The old
+  repo still has one; `/files/resume.pdf` and
+  `/files/Sumedh_Phadke_Resume_DevOps.pdf` were live and now 404.
 - Garden contract line (principle 4) not yet added to the Garden layout
 - "Now" and "Blog" page titles still read as labels, not descriptions
-- Giscus not configured (repo + category IDs)
+- Giscus not configured. The old repo's `hugo.yaml` holds working IDs
+  (`R_kgDOMJUZLw` / `DIC_kwDOMJUZL84CghFE`) but they point discussions at
+  `sumedhphadke/website`, so re-provision rather than copy.
+- `--color-text-faint` fails WCAG AA: 3.22:1 dark, 2.24:1 light, against a
+  4.5:1 requirement. It carries every date on the site, which principle 8
+  makes load-bearing. `--color-text-muted` also fails in light, at 4.27:1.
+- No print stylesheet exists. Principle 10 claims "how it prints"; today a
+  dark-theme page prints as near-white text on white.
+- Garden `tags` are in the schema and being written, but nothing renders
+  them — only blog tags display.
+
+## Deployment
+
+`npm run deploy` — builds, then deploys. Always both: `wrangler deploy` on a
+stale or missing `dist/` publishes the stale one.
+
+Target is Cloudflare Workers Static Assets. Not Pages — @astrojs/cloudflare
+v14 removed Pages support, so that door is closed, not merely unfashionable.
+
+The trap: `astro build` generates `dist/client/wrangler.json` plus a
+`.wrangler/deploy/config.json` pointing at it, and *that* is what deploys.
+The root `wrangler.jsonc` is read by other commands and by a deploy with no
+prior build. It is kept correct for those cases, but editing it will not
+change a normal deploy.
+
+One URL form, no trailing slash. `trailingSlash: 'never'` in astro.config.ts
+and `html_handling: "drop-trailing-slash"` in wrangler.jsonc are a pair —
+change one without the other and every internal link costs a redirect hop,
+or canonical starts pointing at a URL that redirects.
+
+`_redirects` handles paths only. Workers Static Assets does not support
+domain-level redirects, so www → apex is a Cloudflare Single Redirect rule,
+plus placeholder proxied `www` records (`A 192.0.2.1`, `AAAA 100::`) that
+exist only to give the edge something to intercept. Both families are
+needed: with AAAA alone, IPv4-only clients get NXDOMAIN.
+
+Deploys are manual today. No Workers Builds git integration, no CI.
 
 ## Verification
 
