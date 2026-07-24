@@ -6,10 +6,18 @@ Personal website. Resume, now log, blog, and digital garden.
 
 ```bash
 npm install
+git config core.hooksPath .githooks   # once per clone — see below
 npm run dev        # http://localhost:4321
 npm run build      # production build to dist/
 npx astro check    # type check — must pass before committing
 ```
+
+### The commit gate
+
+`.githooks/pre-commit` runs `astro check` and aborts the commit if it fails.
+Git will not use a checked-in hooks directory on its own, so **a fresh clone
+needs `git config core.hooksPath .githooks`** or the gate silently does
+nothing. `git commit --no-verify` skips it; that should feel like a decision.
 
 ## Publishing content
 
@@ -18,7 +26,7 @@ npx astro check    # type check — must pass before committing
 Create a new `.mdx` file in `src/content/blog/`:
 
 ```
-src/content/blog/my-post-slug.mdx
+src/content/blog/2025-04-15-my-post-slug.mdx
 ```
 
 Frontmatter:
@@ -35,7 +43,10 @@ draft: false
 
 - Set `draft: true` to hide it from the blog listing and index
 - Tags are optional (defaults to `[]`)
-- The filename becomes the URL slug: `/blog/my-post-slug`
+- The date prefix sorts the directory and is **stripped from the URL**:
+  `2025-04-15-my-post-slug.mdx` is served at `/blog/my-post-slug`
+- Because the date is stripped, slugs must be unique across all dates — two
+  posts differing only by date collide on one route and the build fails
 - Uses MDX — you can import and use Astro components if needed
 
 ### Garden note

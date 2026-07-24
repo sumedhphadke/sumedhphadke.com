@@ -8,20 +8,6 @@ if (!workEntry) throw new Error('work/index.md not found');
 const { Content } = await render(workEntry);
 ---
 
-<Prose title="Work" description="Sumedh Phadke's resume.">
+<Prose title="Work" description="What Sumedh is building, and what he built before.">
   <Content />
-  <p class="resume-link">
-    <a href="/resume.pdf">Download resume (PDF)</a>
-  </p>
 </Prose>
-
-<style>
-  .resume-link {
-    margin-top: var(--space-8);
-    font-size: var(--font-size-sm);
-  }
-
-  .resume-link a {
-    color: var(--color-accent);
-  }
-</style>

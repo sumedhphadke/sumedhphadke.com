@@ -5,7 +5,7 @@
   --color-bg:           #0F1117;
   --color-surface:      #1A1B1F;
   --color-border:       #2A2D37;
-  --color-text-primary: #F0EBE1;
+  --color-text-primary: #CFC8BB;
   --color-text-muted:   #A8A090;
   --color-text-faint:   #6B6458;
   --color-accent:       #E8541A;
@@ -32,6 +32,11 @@
   --font-size-2xl:  32px;
   --line-height-tight: 1.4;
   --line-height-base:  1.7;
+
+  /* Weights. Only 400/500/600 ship — anything else is faux-bold. */
+  --font-weight-base:     400;
+  --font-weight-emphasis: 500;
+  --font-weight-heading:  600;
 
   /* Spacing (4px base grid) */
   --space-1:  4px;

@@ -1,15 +1,33 @@
+/* Both properties inherit, so one declaration covers the viewport and every
+   inner scroller (code blocks, mainly). No ::-webkit-scrollbar block: where
+   both exist the standard properties win, so it would be dead bytes.
+   Thumb reuses --color-text-faint rather than adding a token — it is already
+   the "present but quiet" value, and it carries its own light-mode pair. */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-text-faint) transparent;
+  /* Reserve the gutter so content doesn't shift sideways between a page that
+     overflows and one that doesn't. */
+  scrollbar-gutter: stable;
+}
+
 body {
   font-family: var(--font-mono);
   font-size: var(--font-size-base);
+  font-weight: var(--font-weight-base);
   line-height: var(--line-height-base);
   color: var(--color-text-primary);
   background-color: var(--color-bg);
-  -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3, h4 {
-  font-weight: 500;
+  font-weight: var(--font-weight-heading);
   line-height: var(--line-height-tight);
+}
+
+/* Headings must outrank inline emphasis, or a bold run reads as a section. */
+strong, b {
+  font-weight: var(--font-weight-emphasis);
 }
 
 h1 { font-size: var(--font-size-2xl); }

@@ -30,8 +30,8 @@ const { title, description } = Astro.props;
   }
 
   .prose :global(h3) {
-    margin-top: var(--space-6);
-    margin-bottom: var(--space-2);
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-3);
   }
 
   .prose :global(p) {
@@ -44,8 +44,14 @@ const { title, description } = Astro.props;
     padding-left: var(--space-6);
   }
 
+  /* Items run to three lines here. The gap between them has to beat the
+     leading inside them, or the list reads as one block. */
   .prose :global(li) {
-    margin-bottom: var(--space-1);
+    margin-bottom: var(--space-3);
+  }
+
+  .prose :global(img) {
+    margin: var(--space-6) 0;
   }
 
   .prose :global(blockquote) {

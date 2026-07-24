@@ -1,17 +1,52 @@
 ---
 const year = new Date().getFullYear();
+
+const links = [
+  { label: 'email', href: 'mailto:sumedhphadke@gmail.com' },
+  { label: 'github', href: 'https://github.com/sumedhphadke' },
+  { label: 'linkedin', href: 'https://www.linkedin.com/in/sumedhphadke' },
+];
 ---
 
 <footer class="site-footer">
   <p>&copy; {year} Sumedh Phadke</p>
+  <ul class="footer-links">
+    {links.map((link) => (
+      <li>
+        <a href={link.href} rel="me">{link.label}</a>
+      </li>
+    ))}
+  </ul>
 </footer>
 
 <style>
   .site-footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-3);
     margin-top: var(--space-16);
     padding: var(--space-4) 0;
     border-top: 1px solid var(--color-border);
     font-size: var(--font-size-xs);
     color: var(--color-text-faint);
+  }
+
+  .footer-links {
+    display: flex;
+    gap: var(--space-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .footer-links a {
+    color: var(--color-text-faint);
+    text-decoration: none;
+  }
+
+  .footer-links a:hover {
+    color: var(--color-link-hover);
+    text-decoration: underline;
   }
 </style>

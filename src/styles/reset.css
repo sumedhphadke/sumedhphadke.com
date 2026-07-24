@@ -9,9 +9,13 @@ html {
   font-size: 16px;
 }
 
+/* height: auto is load-bearing. Astro emits width/height attributes from the
+   source file; without it, max-width clamps the width and the height attribute
+   stays, stretching any image wider than its column. */
 img, video, svg {
   display: block;
   max-width: 100%;
+  height: auto;
 }
 
 a {

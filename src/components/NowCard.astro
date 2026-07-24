@@ -9,19 +9,25 @@ interface Props {
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 
-const dateStr = entry.data.date.toLocaleDateString('en-US', {
-  year: 'numeric',
-  month: 'short',
-  day: 'numeric',
-});
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
+
+const { date, ended, title, category } = entry.data;
+const dateStr = fmt(date);
+const endedStr = ended ? fmt(ended) : null;
+const whenStr = endedStr && endedStr !== dateStr ? `${dateStr} – ${endedStr}` : dateStr;
 ---
 
-<article class="now-card">
+<article class:list={['now-card', { ended: endedStr !== null }]}>
   <header>
-    <h3>{entry.data.title}</h3>
+    <h3>{title}</h3>
     <div class="now-meta">
-      <time datetime={entry.data.date.toISOString()}>{dateStr}</time>
-      <span class="now-category">{entry.data.category}</span>
+      <time datetime={date.toISOString()}>{whenStr}</time>
+      <span class="now-category">{category}</span>
     </div>
   </header>
   <div class="now-body">
@@ -34,6 +40,15 @@ const dateStr = entry.data.date.toLocaleDateString('en-US', {
     border-left: 2px solid var(--color-accent);
     padding-left: var(--space-4);
     margin-bottom: var(--space-6);
+  }
+
+  /* Finished. The card's only ornament carries the state — no extra badge. */
+  .now-card.ended {
+    border-left-color: var(--color-border);
+  }
+
+  .now-card.ended .now-category {
+    color: var(--color-text-faint);
   }
 
   .now-card h3 {
