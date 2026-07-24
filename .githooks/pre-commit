@@ -1,0 +1,12 @@
+#!/bin/sh
+# Every commit typechecks. This is the gate — it does not care whether the
+# edit came from VS Code, an agent, or a merge.
+#
+# Bypass with `git commit --no-verify` when you mean it. Meaning it is rare.
+
+if ! npx astro check; then
+  echo
+  echo "pre-commit: astro check failed. Nothing was committed."
+  echo "Fix the errors above, or use --no-verify if you know why you're skipping."
+  exit 1
+fi

@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node",
+            "args": [".claude/hooks/astro-check.mjs"],
+            "timeout": 120,
+            "statusMessage": "astro check"
+          }
+        ]
+      }
+    ]
+  }
+}
