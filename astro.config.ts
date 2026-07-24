@@ -10,7 +10,6 @@ export default defineConfig({
     mdx(),
   ],
   markdown: {
-    smartypants: true,
     shikiConfig: {
       theme: 'github-light',
       wrap: false,
