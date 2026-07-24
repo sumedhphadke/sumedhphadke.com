@@ -1,0 +1,40 @@
+---
+import Prose from '../layouts/Prose.astro';
+
+// No <style> block on purpose. Prose already styles a heading, paragraphs and
+// a list, and a 404 is nothing but those three things.
+const sections = [
+  { href: '/now', label: 'now', blurb: "what I'm doing at the moment" },
+  { href: '/work', label: 'work', blurb: "what I'm building, and what I built before" },
+  { href: '/blog', label: 'blog', blurb: 'writing, dated and finished' },
+  { href: '/garden', label: 'garden', blurb: 'notes, still growing' },
+] as const;
+---
+
+<Prose title="Not found" description="That page isn't here. This is what is." noindex>
+  <h1>Nothing at this address</h1>
+
+  <p>
+    This site replaced an older one, and not every URL survived the move. If you
+    got here from a search result or an old bookmark, that is the likely
+    explanation. The other one is that I moved something and didn't leave a
+    redirect behind.
+  </p>
+
+  <p>Either way, the mistake is at this end.</p>
+
+  <p>What does exist:</p>
+
+  <ul>
+    {sections.map((section) => (
+      <li>
+        <a href={section.href}>{section.label}</a> — {section.blurb}
+      </li>
+    ))}
+  </ul>
+
+  <p>
+    If none of those is it, <a href="/">the front page</a> lists the most recent
+    thing in each.
+  </p>
+</Prose>

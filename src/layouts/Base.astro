@@ -14,9 +14,10 @@ import Footer from '../components/Footer.astro';
 interface Props {
   title: string;
   description?: string;
+  noindex?: boolean;
 }
 
-const { title, description } = Astro.props;
+const { title, description, noindex } = Astro.props;
 ---
 
 <!doctype html>
@@ -29,7 +30,7 @@ const { title, description } = Astro.props;
         }
       })();
     </script>
-    <Head title={title} description={description} />
+    <Head title={title} description={description} noindex={noindex} />
   </head>
   <body>
     <div class="site-wrapper">

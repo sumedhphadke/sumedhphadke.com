@@ -1,11 +1,23 @@
+// Deploy target: Cloudflare Workers Static Assets. Not Pages — @astrojs/cloudflare
+// v14 dropped Pages support entirely.
+//
+// Read this before editing: `astro build` writes its own dist/client/wrangler.json
+// and a .wrangler/deploy/config.json pointing at it, and *that* generated file is
+// what `wrangler deploy` actually uses. Changing values here does not change a
+// normal deploy. This file still matters in two cases — other wrangler commands
+// (`wrangler types`), and a deploy run without a preceding build, where wrangler
+// falls back to it. So it is kept honest and correct rather than left to rot.
 {
 	"compatibility_date": "2026-04-10",
-	"compatibility_flags": ["global_fetch_strictly_public"],
-	"name": "temp-init",
-	"main": "@astrojs/cloudflare/entrypoints/server",
+	"name": "sumedhphadke-com",
+	// No `main`: every page is prerendered, so there is no worker code to run and
+	// dist/server is empty. This is an asset-only worker.
 	"assets": {
-		"directory": "./dist",
-		"binding": "ASSETS"
+		// dist/client, not dist — the adapter splits client and server output, and
+		// pointing at dist would serve the whole site under /client/.
+		"directory": "./dist/client",
+		// Serve 404.astro with a real 404 status instead of Cloudflare's default.
+		"not_found_handling": "404-page"
 	},
 	"observability": {
 		"enabled": true

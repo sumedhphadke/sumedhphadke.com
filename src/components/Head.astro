@@ -3,12 +3,18 @@ interface Props {
   title: string;
   description?: string;
   canonicalUrl?: string;
+  /* The 404 page is the only caller so far. Without this it self-canonicalises
+     and asks to be indexed — which, mid-migration from a site whose old URLs
+     are still in the wild, is exactly backwards. */
+  noindex?: boolean;
 }
 
-const { title, description, canonicalUrl } = Astro.props;
+const { title, description, canonicalUrl, noindex = false } = Astro.props;
 const siteTitle = 'Sumedh Phadke';
 const fullTitle = title === siteTitle ? title : `${title} — ${siteTitle}`;
-const resolvedDescription = description ?? 'Personal website of Sumedh Phadke.';
+/* `||`, not `??`: the blog schema requires a description but permits "", and an
+   empty string should fall back rather than ship an empty meta tag. */
+const resolvedDescription = description || 'Personal website of Sumedh Phadke.';
 const canonical = canonicalUrl ?? Astro.url.href;
 ---
 
@@ -16,9 +22,15 @@ const canonical = canonicalUrl ?? Astro.url.href;
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>{fullTitle}</title>
 <meta name="description" content={resolvedDescription} />
-<link rel="canonical" href={canonical} />
+{noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title="Writing — Sumedh Phadke"
+  href="/rss.xml"
+/>
 <meta property="og:title" content={fullTitle} />
 <meta property="og:description" content={resolvedDescription} />
 <meta property="og:url" content={canonical} />

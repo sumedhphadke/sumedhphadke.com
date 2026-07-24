@@ -30,9 +30,11 @@ function formatDate(date: Date): string {
 
 <Base title="Sumedh Phadke">
   <section class="intro">
-    <!-- TODO: Sumedh — replace this with your own intro. Two lines, your voice, not a README. -->
-    <p>This is the personal website of Sumedh Phadke.</p>
-    <p>Resume, now log, blog, and digital garden.</p>
+    <p>
+      I engineer things. Currently Adopted.Agency and Snappin.AI; before that,
+      nine years at Linedata.
+    </p>
+    <p>This is where the thinking gets written down before it's finished.</p>
   </section>
 
   <section class="snapshot">
@@ -80,9 +82,16 @@ function formatDate(date: Date): string {
     margin-bottom: var(--space-12);
   }
 
+  /* reset.css zeroes margins, so without this the two paragraphs butt together
+     and read as one block — worst at narrow widths, where the first wraps. */
   .intro p {
     color: var(--color-text-muted);
     font-size: var(--font-size-base);
+    margin-bottom: var(--space-4);
+  }
+
+  .intro p:last-child {
+    margin-bottom: 0;
   }
 
   .snapshot {

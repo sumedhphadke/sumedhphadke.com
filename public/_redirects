@@ -1,12 +1,42 @@
-# Old Hugo site → this one. Kept because the old URLs are in the wild.
-/posts/updates/leaving-linedata  /blog/leaving-linedata  301
-/posts/updates/*                 /blog                   301
-/posts                           /blog                   301
-/posts/*                         /blog                   301
-/notes                           /garden                 301
-/notes/*                         /garden                 301
-/tags                            /blog                   301
-/tags/*                          /blog                   301
-/categories                      /blog                   301
-/categories/*                    /blog                   301
-/search                          /                       301
+# Old Hugo site (Firebase Hosting) → this one. Kept because the old URLs are in
+# the wild: they are in Google's index, in the old sitemap, and in the RSS guids.
+#
+# Every canonical URL on the old site ended in a slash, and Hugo 301'd the
+# slashless form to it. Both forms are listed rather than trusting the splat to
+# catch the slashed one — the leaving-linedata post is the single highest-value
+# redirect on the site and falling through to /blog would lose it.
+#
+# Static rules first: Cloudflare matches in order and warns when an exact rule
+# sits below a splat that would shadow it.
+
+# The only real post the old site ever published.
+/posts/updates/leaving-linedata   /blog/leaving-linedata  301
+/posts/updates/leaving-linedata/  /blog/leaving-linedata  301
+
+# Feeds. Hugo named them index.xml, not rss.xml — /index.xml was the site feed
+# and /posts/index.xml the section feed. Both were live and both had subscribers.
+/index.xml        /rss.xml  301
+/posts/index.xml  /rss.xml  301
+
+# Hugo's client-side search: the Fuse.js index and the page that consumed it.
+/index.json  /  301
+/search      /  301
+/search/     /  301
+
+# Sections. Taxonomies are gone by design — this site does not have tags.
+/posts        /blog    301
+/posts/       /blog    301
+/notes        /garden  301
+/notes/       /garden  301
+/tags         /blog    301
+/tags/        /blog    301
+/categories   /blog    301
+/categories/  /blog    301
+
+# Everything below those trees: individual taxonomy terms, pagination, anything
+# the old catch-all rewrite happened to answer with a 200.
+/posts/updates/*  /blog    301
+/posts/*          /blog    301
+/notes/*          /garden  301
+/tags/*           /blog    301
+/categories/*     /blog    301

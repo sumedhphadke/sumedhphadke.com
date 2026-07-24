@@ -1,5 +1,6 @@
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
+import sitemap from '@astrojs/sitemap';
 import cloudflare from '@astrojs/cloudflare';
 
 export default defineConfig({
@@ -8,6 +9,7 @@ export default defineConfig({
   adapter: cloudflare(),
   integrations: [
     mdx(),
+    sitemap(),
   ],
   markdown: {
     shikiConfig: {
