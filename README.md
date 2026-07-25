@@ -108,7 +108,8 @@ Edit the single file:
 src/content/work/index.md
 ```
 
-Write your resume as prose. A "Download resume (PDF)" link on `/work` points to `public/resume.pdf` — drop your PDF there when ready.
+Write your resume as prose. There is deliberately no PDF download — `/work` is
+the resume. The old site's `/files/resume.pdf` is a 404 and stays one.
 
 ## Drafts
 
@@ -128,7 +129,6 @@ Two ways to keep content out of production:
 | Add a now entry              | Add `.md` file to `src/content/now/`         |
 | End a now entry              | Add `ended: YYYY-MM-DD` to its frontmatter  |
 | Update your resume           | Edit `src/content/work/index.md`             |
-| Add resume PDF               | Drop file at `public/resume.pdf`             |
 | Update homepage intro        | Edit `src/pages/index.astro` (the TODO section) |
 
 ## Deploying

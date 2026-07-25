@@ -35,13 +35,34 @@ h2 { font-size: var(--font-size-xl); }
 h3 { font-size: var(--font-size-lg); }
 h4 { font-size: var(--font-size-base); }
 
+/* The fade says the colour change answered the pointer, rather than the page
+   having repainted under it. 120ms is felt, not watched. */
+a {
+  transition: color 120ms ease-out;
+}
+
 a:hover {
   color: var(--color-accent);
+}
+
+/* Keyboard only. :focus-visible keeps the ring off mouse clicks, where a
+   persistent outline reads as something stuck rather than something selected.
+   Deliberately not transitioned: a focus ring answers "where am I", and
+   delaying that answer costs exactly the people who depend on it. */
+:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-accent);
+  outline-offset: var(--focus-ring-offset);
 }
 
 ::selection {
   background-color: var(--color-accent);
   color: var(--color-bg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  a {
+    transition: none;
+  }
 }
 
 .visually-hidden {

@@ -55,6 +55,13 @@
   /* Borders */
   --radius-sm: 2px;
   --radius-md: 4px;
+
+  /* Focus ring. Geometry only — the colour is --color-accent, which already
+     carries a light-mode pair and clears 3:1 (WCAG 1.4.11) against bg,
+     surface and border in both themes. 2px is the thinnest ring that stays
+     legible next to 11px type; the matching offset keeps it off the glyphs. */
+  --focus-ring-width:  2px;
+  --focus-ring-offset: 2px;
 }
 
 /* Light mode — toggled via class on <html> */

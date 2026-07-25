@@ -76,18 +76,27 @@ toggle working, garden stage badges working. Astro 7.1.3 with matching
 majors on @astrojs/mdx (7.0.3) and @astrojs/cloudflare (14.1.4). Blog posts
 serve at clean URLs, date stripped. RSS at `/rss.xml`, sitemap, real 404.
 
+Decided, not open: there is no resume PDF. `/work` is the resume, as prose.
+The old site's `/files/resume.pdf` and `/files/Sumedh_Phadke_Resume_DevOps.pdf`
+404 and stay that way — no `_redirects` entry, no file in `public/`. Nothing on
+the site ever linked to them, so the 404s cost only stale external links.
+
 Open:
-- `/work` has real prose but no resume PDF at `public/resume.pdf`. The old
-  repo still has one; `/files/resume.pdf` and
-  `/files/Sumedh_Phadke_Resume_DevOps.pdf` were live and now 404.
 - Garden contract line (principle 4) not yet added to the Garden layout
 - "Now" and "Blog" page titles still read as labels, not descriptions
 - Giscus not configured. The old repo's `hugo.yaml` holds working IDs
   (`R_kgDOMJUZLw` / `DIC_kwDOMJUZL84CghFE`) but they point discussions at
   `sumedhphadke/website`, so re-provision rather than copy.
-- `--color-text-faint` fails WCAG AA: 3.22:1 dark, 2.24:1 light, against a
-  4.5:1 requirement. It carries every date on the site, which principle 8
-  makes load-bearing. `--color-text-muted` also fails in light, at 4.27:1.
+- Every date on the site fails WCAG AA in light mode. `--color-text-faint` is
+  3.22:1 dark and 2.24:1 light; `--color-text-muted` is 7.27:1 dark but 4.27:1
+  light, against a 4.5:1 requirement. Faint carries most dates plus the
+  homepage snapshot labels and the scrollbar thumb; muted carries the blog
+  post header date and the now-card date. Every one renders at 11px or 13px,
+  so no large-text exemption applies. Principle 8 makes this load-bearing.
+  The catch: against `#F6F1E9`, faint and muted both land near `#726C69` once
+  they clear 4.5:1 — the light background is too pale to hold two distinct
+  passing greys, so this is a palette decision (darken the light bg, or
+  collapse the two tokens), not a colour tweak.
 - No print stylesheet exists. Principle 10 claims "how it prints"; today a
   dark-theme page prints as near-white text on white.
 - Garden `tags` are in the schema and being written, but nothing renders

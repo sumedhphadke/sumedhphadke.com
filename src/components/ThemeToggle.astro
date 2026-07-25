@@ -36,11 +36,18 @@
     align-items: center;
     justify-content: center;
     line-height: 1;
+    transition: color 120ms ease-out, border-color 120ms ease-out;
   }
 
   .theme-toggle:hover {
     color: var(--color-accent);
     border-color: var(--color-accent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .theme-toggle {
+      transition: none;
+    }
   }
 
   /* Dark mode: show sun, hide moon */
