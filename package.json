@@ -26,6 +26,7 @@
     "@astrojs/check": "^0.9.9"
   },
   "overrides": {
-    "vite": "^8"
+    "vite": "^8",
+    "undici@^7": "^7.30.1"
   }
 }
